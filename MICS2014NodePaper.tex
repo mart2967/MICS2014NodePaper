@@ -189,7 +189,7 @@ For this project, the course utilized the Git software and the GitHub web servic
 Because the customer for this course is a remote company, we needed a way to show off the latest versions of the project from each team. We also needed to ensure that the projects passed all the tests,and that teams knew how much of their code was covered by tests. To address these issues, a machine was provisioned as a Continuous Integration server. 
 
 \subsection{Mocha}\label{sec:mocha}
-Mocha was the testing framework that the students used to verify that their code performed as expected. 
+Mocha was the testing framework that the students used to verify that their code performed as expected. Testing JavaScript code is slightly different than testing other languages. It is highly modular, with many components that can be chosen to make a full test suite. Mocha itself defines the syntax of the tests, and the Assert library built in to Node to make assertions. The Blanket module was used for code coverage on the continuous integration server, with students having the option to use that or the Istanbul code coverage module when running tests locally.
 
 
 \subsection{Strider}\label{sec:strider}
