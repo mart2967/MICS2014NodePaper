@@ -152,7 +152,7 @@ The course has historically been taught using different technologies, most recen
 
 \emcomment{You also probably need a section on the general tool set: testing, test coverage, continuous integration, etc.  }
 
-
+\emcomment{Some general things that are useful to talk about is elements of a web application (client, server, database), and MVC.}
 
 \section{The Server}\label{sec:server}
 The project setup will be described in two sections, covering the server and client-side technologies. The server used in this project is responsible for taking http requests, routing them to the proper functions, and returning a response. The server is primarily used as a database wrapper: its application programming interface, or API, allows clients to access and modify persistent data.
@@ -176,14 +176,18 @@ The client refers to all the code written to run directly on the user's web brow
 
 \subsection{jQuery}\label{sec:jquery}
 A mainstay in the web development world, jQuery is a javascript library that offers simplified scripting and interaction with HTML. The core of jQuery is the selector engine, which allows lookup, traversal, and manipulation of the Document Object Model (DOM) that makes up the heart of any web page. The other systems on the client use jQuery functions to enhance their own abilities.
+\emcomment{code examples would be useful (same for CoffeeScript)}
 
 \subsection{Backbone.js}\label{sec:backbone}
-Backbone is a JavaScript framework for creating Single-Page Applications (SPAs). These are web pages that do not reload the whole page when asked to navigate to another part of the site. Instead, the necessary data is loaded from the server, and the relevant portion of the page is re-rendered using JavaScript. Backbone provides a structure and set of functionality for defining the operation of a site. It provides classes for Models, Views, and Collections, and Routers. A model is the raw data structure of a certain object. They can have fields, functions, and API information, among other things. Collections are simply groups of a certain type of Model. They typically also have an API route, so that Backbone can automatically download the proper set of Models when they are needed. Views are where the data is turned into HTML, and where many of the functions traditionally associated with Controllers in the MVC model have been defined. A view can represent a single Model, a Collection, or neither, but it always has a \code{render()} function that injects the HTML into the page, usually using jQuery. Views can also listen for events that occur within their scope; for example, clicking a button that is part of a view will trigger an event that the View code can then act on. The Router is the class that ties everything together. It is responsible for delegating changes in the URL to different Views, which then render the appropriate content. It is the Router that allows a SPA to have a URL structure without actually loading different pages.
+Backbone is a JavaScript framework for creating Single-Page Applications (SPAs). These are web pages that do not reload the whole page when asked to navigate to another part of the site. Instead, the necessary data is loaded from the server, and the relevant portion of the page is re-rendered using JavaScript. Backbone provides a structure and set of functionality for defining the operation of a site. It provides classes for Models, Views, Collections, and Routers. A model is the raw data structure of a certain object. They can have fields, functions, and API information, among other things. Collections are simply groups of a certain type of Model. They typically also have an API route, so that Backbone can automatically download the proper set of Models when they are needed. Views are where the data is turned into HTML, and where many of the functions traditionally associated with Controllers in the MVC \emcomment{This is a bit confusing because you also use Models, View, Collections. Not sure what to do about it.} model have been defined. A view can represent a single Model, a Collection, or neither, but it always has a \code{render()} function that injects the HTML into the page, usually using jQuery. Views can also listen for events that occur within their scope; for example, clicking a button that is part of a view will trigger an event that the View code can then act on. 
+
+\emcomment{I separated Router into its own paragraph. I think you need to talk about routing in much more detail, before you mention stuff like \code{render}}
+The Router is the class that ties everything together. It is responsible for delegating changes in the URL to different Views, which then render the appropriate content. It is the Router that allows a SPA to have a URL structure without actually loading different pages.
 
 \subsection{Bootstrap}\label{sec:bootstrap}
 Bootstrap, formerly known as Twitter Bootstrap, is a responsive front-end framework. It provides CSS classes and JavaScript functions that help developers quickly build a user interface. It is highly customizable, and optimized for use on mobile devices. The Software Design course has used Bootstrap before, where it allowed students to focus on the functionality of the application and not worry as much about the look and feel.
 
-
+\emcomment{Need to talk about testing, continuous integration, and the like. Also, diagrams, screenshots and the like are useful.}
 
 
 
