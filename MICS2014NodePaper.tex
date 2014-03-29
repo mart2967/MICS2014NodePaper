@@ -134,8 +134,7 @@ These two technologies comprise the core of the project, but there are numerous 
 	
 The number of new concepts that must be taught in order for the Node development paradigm to make sense is quite large. The methods and activities that are used to introduce students to concepts such as agile development, thick-client systems, test-driven development, version control with Git, and continuous integration using testing and deployment servers will be covered. I will also give an overview of the development environment and collaboration structure used by the students.
 	
-In this report I will introduce and analyze the tools chosen for the course project, the approach behind the initial lab exercises, the development workflow for the project, and the continuous integration tools used to facilitate the agile development process. I will conclude with an analysis of the effectiveness of this approach in the Software Design course.
-\mmcomment{As submitted to MICS; needs to be changed}
+In this report I will introduce and analyze the tools chosen for the course project, the methodology of the course, the development workflow for the project, and the continuous integration tools used to facilitate the agile development process. I will conclude with an analysis of the effectiveness of this approach in the Software Design course.
 
 
 \newpage
@@ -146,21 +145,24 @@ In this report I will introduce and analyze the tools chosen for the course proj
 
 \section{Introduction}\label{sec:introduction}
 \subsection{Course Background}\label{sec:course_background}
- The Software Design and Development course is a project-based course, with students collaborating throughout the semester to build one piece of software. The students work in teams of at least four, working on one aspect of the project for the span of an iteration, typically two weeks. At the end of each iteration, the teams give presentations to the customer; this could either be a faculty member or a real company, this year's being the latter. \emcomment{Explain the role of the customer earlier, when you talk about "one piece fo software".} As the semester progresses, the disparate codebases are assembled and improved by teams of increasing size, resulting in two or three large projects that must be consolidated into a final product.
-\mmcomment{Maybe add a learning goals section?}
-\emcomment{Wouldn't be a bad idea, but I don't think I have access to the real (agreed upon) learning goals. However, stressing the agile nature of the course would be useful. }
+ The Software Design and Development course is a project-based course, with students collaborating throughout the semester to build one piece of software for a customer. The students work in teams of at least four, working on one aspect of the project for the span of an iteration, typically two weeks. At the end of each iteration, the teams give presentations to the customer; this could either be a faculty member or a real company, this year's being the latter. As the semester progresses, the disparate codebases are assembled and improved by teams of increasing size, resulting in two or three large projects that must be consolidated into a final product. The development process utilizes the agile methodology, with the class holding group event such as the Inception deck, where the project is unveiled and students brainstorm ideas for how to build it. A key part of agile is the user story, which is a description of some action a user may want to perform. Once students have created, organized, and filtered their stories, they are the main "to-do" list for the project. By focusing on user interactions instead of technical specifications, the agile process is more responsive to any changes in the project's scope than other methods, and allows flexibility in how students choose to implement features.
+%\mmcomment{Maybe add a learning goals section?}
+%\emcomment{Wouldn't be a bad idea, but I don't think I have access to the real (agreed upon) learning goals. However, stressing the agile nature of the course would be useful. }
 
 \subsection{Reasons for Transition}\label{sec:reasons_for_transition}
-The course has historically been taught using different technologies, most recently the Grails framework for web application, and Java with the Swing library before that. The transition from a heavily server-reliant technology like Grails to a more lightweight technology was driven by the state of cutting-edge web development practices. More and more real-world web applications are being built with client-side JavaScript frameworks that handle more operations and ease the burden on the central server. These frameworks include Backbone.js, Angular.js, Ember.js, and many more. They typically do not make any assumptions about the server, other than that it can accept REST-style HTTP requests. REST is short for Representational State Transfer, and REST-style applications are those that do not require the client to know anything about how to interact with the API, therefore telling the client what they want and where to send it. This leaves the developer free to choose their tools without fear of incompatibilities. The adoption of client-side JavaScript frameworks has been accelerated by both the increasing power of internet capable-devices, and the potential increased load on back-end servers due to their rapid proliferation.
-\emcomment{It may be better to first talk about the change in the landscape for web applications, and then talk about how software design course reflects that change.}
+The course has historically been taught using different technologies, most recently the Grails framework for web applications, and Java with the Swing library before that. The transition from a heavily server-reliant technology like Grails to a more lightweight technology was driven by the state of cutting-edge web development practices. More and more real-world web applications are being built with client-side JavaScript frameworks that handle more duties and ease the burden on the central server. These frameworks include Backbone.js, Angular.js, Ember.js, and many more. They typically do not make any assumptions about the server, other than that it can accept REST-style HTTP requests. REST is short for Representational State Transfer, and REST-style applications are those that do not require the client to know anything about how to interact with the API, therefore telling the client what they want and where to send it. This leaves the developer free to choose their tools without fear of incompatibilities. The adoption of client-side JavaScript frameworks has been accelerated by both the increasing power of internet capable-devices, and the potential increased load on back-end servers due to their rapid proliferation. One goal of the Software Design course is to simulate a real work environment, preparing students for the kinds of development or project management they are likely to see in their careers. We chose to move to this new paradigm as it has become so popular in the professional sphere, as well as its very customizable nature. 
+%\emcomment{It may be better to first talk about the change in the landscape for web applications, and then talk about how software design course reflects that change.}
 
 \subsection{The Development Environment}\label{sec:IDE}
 Selecting the development tools is a crucial part of any project. To use a full Integrated Development Environment or a collection of more lightweight tools is an important decision. It was decided to use WebStorm, an IDE based on the IntelliJ IDEA program. The developer offers a free educational license, which was used for all class activities. The IDE itself offers a well-designed user interface, with file management, tabs, and built-in terminal windows. It also offers robust support for Node.js and CoffeeScript, as well as various test frameworks, code coverage tools, and package management. \emcomment{Mention git support}
 
+\subsection{Project Structure}\label{sec:structure}
+The core architecture of the project must be well defined before starting any serious development, so in the weeks preceding the start of the course, we chose a set of tools and planned out what they would do and where they would do it. Because the students will be building a web application, a strong distinction between server code and client code was needed, especially since the same language is used on both ends. The Node.js based server would be backed with a database, and be able to do basic HTML templating so as to reduce code duplication. On the client, the constructed templates sent by the server are populated with the relevant content via our JavaScript framework, and upon changing states or navigating through the site, it will only download the needed data instead of requesting a pre-rendered page from the server. This structure allows us to separate the data operations from the construction of HTML, providing code that can easily be reused in different areas of the application.
+
 \section{The Server}\label{sec:server}
 The project setup will be described in two sections, covering the server and client-side technologies. The server used in this project is responsible for taking http requests, routing them to the proper functions, and returning a response. The server contains less logic than in other systems, as most of the rendering and light data manipulation is left up to the client. This leaves it free to focus on providing an API that performs operations and handles requests with the backing of its database.
 
-\emcomment{You also probably need a section on the general tool set: testing, test coverage, continuous integration, etc.  }
+%\emcomment{You also probably need a section on the general tool set: testing, test coverage, continuous integration, etc.  }
 
 \emcomment{Some general things that are useful to talk about is elements of a web application (client, server, database), and MVC.}
 
@@ -171,24 +173,66 @@ For the core of the server, Node.js was chosen. Node is a platform built for web
 \subsubsection{Express}\label{sec:express}
 Express is a node module that adds a more robust framework to Node for building web applications. It handles many common operations, allows advanced configuration of the server, and breaks up the logic into multiple areas.  For example, it simplifies the definition of API routes, defining static files directories, setting global variables, and much more. It is designed to not force developers into one type of application structure, and as a result, Express applications can take many forms.
 
+\subsection{Hogan}\label{sec:hogan}
+While most of the rendering takes place on the client, it is useful to construct a lightweight HTML template that our front-end JavaScript framework can then insert content into. Hogan.js is a templating engine from Twitter, based on the Mustache.js specification. It has improved runtime on many operations which is why we selected it from the large amount of templating engines available today. In our setup, Hogan is responsible for cobbling together different chunks of HTML and injecting a few variables like the page title. An example is provided below.
+\begin{verbatim}
+<html>
+	<head>
+{{> head_content}} <!-- These kind of tags indicate a partial -->
+</head>
+<body>
+{{> navbar}} 
+    <div class="container">
+        {{{ yield }}} <!-- Where the page skeleton will go -->
+    </div>
+{{> scripts}}
+</body>
+</html>
+\end{verbatim}
 
 \subsection{CoffeeScript}\label{sec:coffee}
-While Node.js applications are written in JavaScript, a language called Coffeescript is used in the course. Coffeescript is a language with syntax inspired by Python, Ruby, and Haskell that transpiles to JavaScript. To transpile is to convert a high-level language into another high level language, whereas compiling converts to a lower-level language. The goal of Coffeescript is to make JavaScript easier to read and write. It accomplishes this by abstracting over the often unnecessarily complex conventions of JavaScript. A typical Coffeescript file is approximately one-third shorter than the equivalent JavaScript file. It also includes features that remove the often-unexpected nature of the JavaScript scope, automatically using the \code{var} keyword where it is needed. 
-\emcomment{You might want to say something about common JavaScript scope errors.}
+While Node.js applications are written in JavaScript, a language called Coffeescript is used in the course. Coffeescript is a language with syntax inspired by Python, Ruby, and Haskell that transpiles to JavaScript. To transpile is to convert a high-level language into another high level language, whereas compiling converts to a lower-level language. The goal of Coffeescript is to make JavaScript easier to read and write. It accomplishes this by abstracting over the often unnecessarily complex conventions of JavaScript. A typical Coffeescript file is approximately one-third shorter than the equivalent JavaScript file. It also includes features that remove the often-unexpected nature of the JavaScript scope, automatically using the \code{var} keyword where it is needed. Common JavaScript scope pitfalls include accidentally creating or overwriting a global variable, improperly binding variables to your \code{this} object, and many more. While CoffeeScript may not magically fix broken code, it will make it harder to write in the first place.
+%\emcomment{You might want to say something about common JavaScript scope errors.}
 
 
 \subsection{MongoDB}\label{sec:mongo}
 Every web application needs a database, and MongoDB was a great fit. It stores data in JavaScript Object Notation, or JSON. This allows queries to return data that is immediately useful to the application, whereas a more traditional SQL based database might require a hefty function to parse and organize the data. Queries are also written in JavaScript. The technology is known for its and load balancing features, which allow one database to run across multiple machines (this is known as sharding); however, the scale of the project is not large enough to take advantage of these features.
 
 \subsubsection{Mongoose}\label{sec:mongoose}
-Mongoose is a Node module that simplifies and enhanced interaction with MongoDB. It offers the ability to define database schemas, and query based on the models you have defined. It simplifies working with the data by integrating validation, type casting, and query building for improved ease of development.
+Mongoose is a Node module that simplifies and enhanced interaction with MongoDB. It offers the ability to define database schemas, and query based on the models you have defined. It simplifies working with the data by integrating validation, type casting, and query building for improved ease of development. Below is an example of an edit function on the server, written in CoffeeScript.
+\begin{verbatim}
+exports.edit = (req, res) ->
+  section = req.body
+  delete section._id
+  id = req.params.id
+  Section.update({ _id: id }, { $set: section }, (err, numAffected, raw) ->
+    console.log err if err
+    console.log '%d document updated', numAffected
+    console.log 'The raw response from Mongo was ', raw
+    res.send section
+  )
+\end{verbatim}
+
 
 \section{The Client}\label{sec:client}
 The client refers to all the code written to run directly on the user's web browser. On initial page load, the server sends all the necessary JavaScript files to the client, which then handles layout, rendering of data to HTML, user interaction and event handling, and more. This client-side JavaScript handles many functions that were once the domain of the server, and by doing so allows the latter to focus on data operations.
 
 \subsection{jQuery}\label{sec:jquery}
-A mainstay in the web development world, jQuery is a javascript library that offers simplified scripting and interaction with HTML. The core of jQuery is the selector engine, which allows lookup, traversal, and manipulation of the Document Object Model (DOM) that makes up the heart of any web page. The other systems on the client use jQuery functions to enhance their own abilities.
-\emcomment{code examples would be useful (same for CoffeeScript)}
+A mainstay in the web development world, jQuery is a javascript library that offers simplified scripting and interaction with HTML. The core of jQuery is the selector engine, which allows lookup, traversal, and manipulation of the Document Object Model (DOM) that makes up the heart of any web page. The other systems on the client use jQuery functions to enhance their own abilities. Some simple jQuery operations are shown below.
+\begin{verbatim}
+// set html for element
+$("#someDiv p:first" ).html( "This is the <em>first</em> paragraph");
+
+// set value for all inputs of myClass
+$("input.myClass").val("default text");
+
+// bind a function to the click event of an element
+$("#myButton").on("click", function(){
+    alert("Button was clicked");
+});
+\end{verbatim}
+
+%\emcomment{code examples would be useful (same for CoffeeScript)}
 
 \subsection{Backbone.js}\label{sec:backbone}
 Backbone is a JavaScript framework for creating Single-Page Applications (SPAs). These are web pages that do not reload the whole page when asked to navigate to another part of the site. Instead, the necessary data is loaded from the server, and the relevant portion of the page is re-rendered using JavaScript. Backbone provides a structure and set of functionality for defining the operation of a site. A stated goal of Backbone is that it does not make many design decisions; these are left up to the developer. This approach is a good one for a classroom environment as students are able to learn more about proper application design. It provides classes for Models, Views, Collections, and Routers. A model is the raw data structure of a certain object. They can have fields, functions, and API information, among other things. Collections are simply groups of a certain type of Model. They typically also have an API route, so that Backbone can automatically download the proper set of Models when they are needed. Views are where the data is turned into HTML, and where many of the functions traditionally associated with Controllers in the MVC model have been defined. Because of the lack of clear controllers, Backbone and other front-end JavaScript frameworks are often referred to as MV* frameworks. 
@@ -206,7 +250,7 @@ Bootstrap, formerly known as Twitter Bootstrap, is a responsive front-end framew
 \section{Version Control With Git and GitHub}\label{sec:git}
 For this project, the course utilized the Git software and the GitHub web service to provide version control capabilities. Git was chosen over the previous year's SVN setup due to its more modern feature set including better branch support, faster operations, and a number of other features. Using GitHub instead of a local server provided a rich set of collaboration tools and reduced the learning curve by providing a well-designed user interface. Each team of students worked on a separate repository, and ate the end of the iteration, either forked one of them or created a new one for the purposes of aggregating different parts of the last iteration. There was some difficulty using the built-in interface to Git provided by WebStorm; occasionally files deleted from the project were still tracked in Git, and students had trouble reconciling this. Git as a system has a steeper learning curve than subversion, and even more experienced users can run into trouble. However when working properly, Git provides a good system for source code management.
 
-\emcomment{Need to talk about testing, continuous integration, and the like. Also, diagrams, screenshots and the like are useful.}
+%\emcomment{Need to talk about testing, continuous integration, and the like. Also, diagrams, screenshots and the like are useful.}
 
 \section{Testing, Continuous Integration and Deployment}\label{sec:CI}
 Because the customer for this course is a remote company, we needed a way to show the latest versions of the project from each team. We also needed to ensure that the projects passed all the tests,and that teams knew how much of their code was covered by tests. To address these issues, a machine was provisioned as a Continuous Integration server. \emcomment{we have set up a server to provide continuous integration} \emcomment{Perhaps mention Strider here? Move from later?}
@@ -215,13 +259,17 @@ Because the customer for this course is a remote company, we needed a way to sho
 Mocha is the testing framework that the students use to verify that their code performed as expected. Testing JavaScript code is slightly different than testing other languages. It is highly modular, with many components that can be chosen to make a full test suite. Mocha itself defines the syntax of the tests, and the Assert library built in to Node to make assertions. \emcomment{grammar in the previous sentence needs to be fixed}The Blanket module was used for code coverage on the continuous integration server, with students having the option to use that or the Istanbul code coverage module when running tests locally. WebStorm ships with enhanced Mocha compatibility, so it was easy to get up and running testing the server. Testing the front-end JavaScript, however, was more troublesome due to the lack of Node features like \code{exports} and \code{require}, which, respectively, are needed to make components available to other files, and to access data exported by other files.\emcomment{Describe the problem in more detail; do we have a solution?}
 
 \subsection{Code Coverage}\label{sec:coverage}
-Having tests is good, but they are only as good as the amount of code and cases they run through. To keep tabs on this data, a code coverage module is used. This project uses two different ones, one on the IDE and one on the continuous integration server. On the developer's machines, a library called Istanbul generates reports showing which lines were run from each file. On the CI server, we use a plugin for Strider that runs Blanket code coverage reports \emcomment{Have you mentioned Blanket before?}, which are available right in the page. The tests are the same on both ends, it is just the library that has changed. This demonstrates the modularity of this development process.
+\includegraphics[width=\linewidth]{img/strider_3.png}
+Having tests is good, but they are only as good as the amount of code and cases they run through. To keep tabs on this data, a code coverage module is used. This project uses two different ones, one on the IDE and one on the continuous integration server. On the developer's machines, a library called Istanbul generates reports showing which lines were run from each file. On the CI server, we use a plugin for Strider that runs Blanket code coverage reports, which are available right in the page. The tests are the same on both ends, it is just the library that has changed. This demonstrates the modularity of this development process.
+
 
 \subsection{Strider}\label{sec:strider}
 \includegraphics[width=\linewidth]{img/strider_2.png}
-Strider is the core of the continuous integration process. It is a software package that manages testing and deployment of repositories. When new code is pushed to GitHub, Strider downloads the project, runs the necessary setup scripts, runs the tests, and computes code coverage data with Blanket. It then deploys the project to a local web server, from which it can be accessed from anywhere. This is quite helpful when trying to present the iteration's progress to the customer. Due to the sensitive nature of some of the data used in the project, there are scripts that load things such as API keys out of a database on the CI server and pass them directly to Node when starting up the project. \emcomment{Need to be clearer here}
+Strider is the core of the continuous integration process. It is a software package that manages testing and deployment of repositories. When new code is pushed to GitHub, Strider downloads the project, runs the necessary setup scripts, runs the tests, and computes code coverage data with Blanket. It then deploys the project to a local web server, from which it can be accessed from anywhere. This is quite helpful when trying to present the iteration's progress to the customer. Due to the sensitive nature of some of the data used in the project, there are scripts that load things such as API keys out of a database on the CI server and pass them directly to Node when starting up the project. Strider is very extensible, supporting plugins for custom scripts, deployment to hosting providers, and more.
 
 
+\section{Conclusion}\label{sec:conclusion}
+The course is yet ongoing as of this writing, so I will focus on the process rather than the result. Students at this point are becoming confident in their ability to work with the tools, and development velocity is increasing. However the learning curve was definitely steep. Students had particular difficulty wrapping their heads around Backbone.js, partially due to the very granular nature of tasks it performs and the large number of files that result. Earlier on, the students were often unsure of what the client should do and what the server should, but this too has been mostly overcome. The sheer number of components and understanding the division of responsibilities between them has been one of the most  difficult parts of the course, but the current state of things shows signs of continued improvement. A key idea that this course imparts is the value of research and the use of libraries; the amount of functionality in this year's and in previous years projects has been greatly increased by the careful selection of plugins and modules.
 
 
 
