@@ -129,6 +129,7 @@ mart2967@morris.umn.edu
 Overhauling the contents of any computer science course is a formidable undertaking, especially when the class is based on cutting-edge software development techniques. The Software Design and Development course at the University of Minnesota, Morris is collaboration-based, with students working on a project for a customer, this year a private company. The course   recently transitioned from web development with Groovy and Grails to a more modern approach with Node.js and CoffeeScript. Node.js has risen into prominence for its unique properties, such as server-side JavaScript, non-blocking I/O, extendability, and native web-serving. CoffeeScript is a language designed to improve upon JavaScript, while being universally compatible with JavaScript-based tools. Concepts including agile development, thick-client systems, testing, version control, and continuous integration will be covered. I will give an overview of the development environment and collaboration structure used by the students. I will conclude with an analysis of this new approach.
 
 
+
 \newpage
 %this causes problems when compiling.
 
@@ -171,7 +172,7 @@ Node has a massive ecosystem of plugins, called modules, that allow developers t
 Express~\cite{Express} is a node module that adds a more robust framework to Node for building web applications. It handles many common operations, allows advanced configuration of the server, and breaks up the logic into multiple areas.  For example, it simplifies the definition of API routes, defining static files directories, setting global variables, and much more. It is designed to not force developers into one type of application structure, and as a result, Express applications can take many forms.
 
 \subsection{Hogan}\label{sec:hogan}
-While most of the rendering takes place on the client, it is useful to construct a lightweight HTML template that our front-end JavaScript framework can then insert content into. Hogan.js~\cite{Hogan} is a templating engine from Twitter, based on the Mustache.js specification. It has improved runtime on many operations which is why we selected it from the large amount of templating engines available today. In our setup, Hogan is responsible for cobbling together different chunks of HTML and injecting a few variables like the page title. An example is provided below.
+While most of the rendering takes place on the client, it is useful to construct a lightweight HTML template that our front-end JavaScript framework can then insert content into. Hogan.js~\cite{Hogan} is a templating engine from Twitter, based on the Mustache.js specification. It has improved runtime on many operations which is why we selected it from the 
 \begin{verbatim}
 <html>
 	<head>
@@ -187,6 +188,7 @@ While most of the rendering takes place on the client, it is useful to construct
 </html>
 \end{verbatim}
 Partials are independent HTML files that have some data that needs to be included on the page but may be reused in other pages. Here the head, navbar, and deferred scripts are loaded in to the main template.
+
 
 \subsection{CoffeeScript}\label{sec:coffee}
 While Node.js applications are natively written in JavaScript, a language called CoffeeScript~\cite{CoffeeScript} is used in the course. CoffeeScript is a language with syntax inspired by Python, Ruby, and Haskell that transpiles to JavaScript. To transpile is to convert a high-level language into another high level language, whereas compiling converts to a lower-level language. The goal of Coffeescript is to make JavaScript easier to read and write. It accomplishes this goal by abstracting over the often unnecessarily complex conventions of JavaScript. A typical CoffeeScript file is approximately one-third shorter than the equivalent JavaScript file. It also includes features that remove the often-unexpected nature of the JavaScript scope, automatically using the \code{var} keyword where it is needed. Common JavaScript scope pitfalls include accidentally creating or overwriting a global variable, improperly binding variables to a \code{this} object, and many more. CoffeeScript defaults to much more clear and robust code. Below is a sample of CoffeeScript syntax taken from the official site.
@@ -211,6 +213,7 @@ math =
 alert "I knew it!" if elvis?
 
 \end{verbatim}
+<<<<<<< HEAD
 Not obvious in this example is that the indentation system is based on spacing, similar to Python. The "backwards" \code{if} statements are intended to help with short operations like assignment, while the traditional structure is used for complex conditionals. Parentheses are not needed on function calls unless there is a need for clear nesting. Functions are defined with a name and parameters preceding an arrow, if defining an anonymous function, only the \code{->} is needed to equal \code{function()}
 
 
@@ -236,6 +239,7 @@ exports.edit = (req, res) ->
 %edited for line length, verify this code runs and look at removing outer parentheses as well
 In this code, incoming data is read from the HTTP request, and the function \code{update} is called on the Mongoose database collection called Section. This function updates a piece of data by its \code{id}.
 
+
 \section{The Client}\label{sec:client}
 The client refers to all the code written to run directly on the user's web browser. On initial page load, the server sends all the necessary JavaScript files to the client, which then handles layout, rendering of data to HTML, user interaction and event handling, and more. This client-side JavaScript handles many functions that were once the domain of the server, and by doing so allows the latter to focus on data operations.
 
@@ -253,7 +257,7 @@ $("#myButton").on("click", function(){
     alert("Button was clicked");
 });
 \end{verbatim}
-The \code{\$( )} syntax denotes a jQuery object, which is given the value of the selector inside of it. Elements can be selected by \code{id} with \code{\$("someDiv")}, and by \code{class} with a period replacing the pound symbol. Functions can then be called on them and range from the simple, like \code{hide()}, which hides the selected element(s), to more advanced things like binding event listeners to an object that act on things like mouse clicks.
+The \code{\$( )} syntax denotes a jQuery object, which is given the value of the selector inside of it. Elements can be selected by \code{id} with \code{\$("someDiv")}, and by \code{class} with a period replacing the pound symbol \emcomment{confused: a period is always used for classes, no?}. Functions can then be called on them and range from the simple, such as \code{hide()}, which hides the selected element(s), to more advanced ones, such as binding event listeners to an object that act on things like mouse clicks.
 
 
 \subsection{Backbone.js}\label{sec:backbone}
@@ -288,12 +292,14 @@ Strider~\cite{Strider} is the core of the continuous integration process. It is 
 +Mocha~\cite{Mocha} is the testing framework that the students use to verify that their code performed as expected. Testing JavaScript code is slightly different than testing other languages. It is highly modular, with many components that can be chosen to make a full test suite. Mocha itself defines the syntax of the tests, while operations like assertion can be handled by other modules. The Blanket module was used for code coverage on the continuous integration server, with students having the option to use that or the Istanbul code coverage module when running tests locally. WebStorm ships with enhanced Mocha compatibility, so it was easy to get up and running testing the server. Testing the front-end JavaScript, however, was more troublesome due to the lack of Node features like \code{exports} and \code{require}, which, respectively, are needed to make components available to other files, and to access data exported by other files. This can be overcome by changing the way in which tests are defined, and the scope in which they are run. Possible solutions include using the browser-targeted version of Mocha, or a module like RequireJS to load the right components.
 
 
+
 \subsection{Code Coverage}\label{sec:coverage}
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{img/strider_3.png}
 \caption{Blanket output, with uncovered lines highlighted}
 \end{figure}
 Having tests is good, but they are only as good as the amount of code and cases they run through. To keep tabs on this data, a code coverage module is used. This project uses two different ones, one on the IDE and one on the continuous integration server. On the developer's machines, a library called Istanbul~\cite{Istanbul} generates reports showing which lines were run from each file. On the CI server, we use a plugin~\cite{Blanket} for Strider that runs Blanket code coverage reports, which are available right in the page. The tests are the same on both ends, it is just the library that has changed. This demonstrates the modularity of this development process.
+
 
 \section{Conclusion}\label{sec:conclusion}
 The course is yet ongoing as of this writing, so I will focus on the process rather than the result. Students at this point are becoming confident in their ability to work with the tools, and development velocity is increasing. However the learning curve was definitely steep. Students had particular difficulty adopting Backbone.js, partially due to the very granular nature of tasks it performs and the large number of files that result. Earlier on, the students were often unsure of what the client should do and what the server should, but this too has been mostly overcome. The sheer number of components and understanding the division of responsibilities between them has been one of the most  difficult parts of the course, but the current state of affairs shows signs of continued improvement. A key idea that this course imparts is the value of research and the use of libraries; the amount of functionality in this year's and in previous years projects has been greatly increased by the careful selection of plugins and modules. Areas that will need improvement include testing of functions that handle HTTP requests, and testing of client-side code. The system for generating coverage reports on the development side could be improved, and research into WebStorm's code coverage features is warranted.
