@@ -231,16 +231,14 @@ exports.edit = (req, res) ->
   section = req.body
   delete section._id
   id = req.params.id
-  Section.update({ _id: id },
+  Section.update { _id: id },
   { $set: section },
   (err, numAffected, raw) ->
     console.log err if err
     console.log '%d document updated', numAffected
     console.log 'The raw response from Mongo was ', raw
     res.send section
-  )
 \end{verbatim}
-%edited for line length, verify this code runs and look at removing outer parentheses as well
 In this code, incoming data is read from the HTTP request, and the function \code{update} is called on the Mongoose database collection called Section. This function updates a piece of data by its \code{id}.
 
 
