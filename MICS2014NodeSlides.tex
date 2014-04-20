@@ -1,0 +1,190 @@
+\documentclass{beamer}
+\usetheme{PaloAlto}
+\usecolortheme{beetle}
+
+\usepackage{graphicx} %For jpg figure inclusion
+\usepackage{times} %For typeface
+\usepackage{epsfig}
+\usepackage{color} %For Comments
+\usepackage[all]{xy}
+\usepackage{float}
+\usepackage{subfigure} 
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{parskip}
+
+%% Elena's favorite green (thanks, Fernando!)
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\definecolor{Teal}{RGB}{2,132,130}
+% Uncomment this if you want to show work-in-progress comments
+\newcommand{\comment}[1]{{\bf \tt  {#1}}}
+% Uncomment this if you don't want to show comments
+%\newcommand{\comment}[1]{}
+\newcommand{\emcomment}[1]{\textcolor{ForestGreen}{\comment{Elena: {#1}}}}
+\newcommand{\mmcomment}[1]{\textcolor{Teal}{\comment{Max: {#1}}}}
+\newcommand{\todo}[1]{\textcolor{blue}{\comment{To Do: {#1}}}}
+\newcommand{\code}[1]{{\texttt {#1}}}
+
+\begin{document}
+\title{Adopting Node.js and CoffeeScript in a Software Design Course}
+\date{\today}
+
+\begin{frame}
+\frametitle{Adopting Node.js and CoffeeScript in a Software Design Course}
+{\centering
+Midwest Instruction and Computing Symposium\par
+April 25, 2014\par
+Maxwell Marti\par
+mart2967@morris.umn.edu\par
+}
+\end{frame}
+
+\frame{\frametitle{Table of contents}\tableofcontents[currentsection]} 
+
+%\begin{frame}[fragile]
+%\frametitle{Introduction}
+%\end{frame}
+
+%\begin{frame}[fragile]
+%\frametitle{Overview}
+%\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Software Design and Development Course}
+	\begin{itemize}
+  	 \item Single project
+  	 \item Small groups
+  	 \item Agile methodology
+	 \item External customer
+	 \item Current technology
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Node.js}
+	\begin{itemize}
+  	 \item Framework for network applications
+  	 \item Uses the V8 JavaScript Engine
+  	 \item Built in web server
+	 \item Asynchronous I/O and JavaScript evaluation
+	 \item Single-threaded event loop
+	 \item large number of additional modules
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Development Workflow}
+	\begin{itemize}
+  	 \item WebStorm IDE (based on IntelliJ IDEA)
+	 \item Unit testing with Mocha
+  	 \item Version control with GitHub
+  	 \item Continuous integration with Strider
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{CoffeeScript}
+	\begin{itemize}
+  	 \item Transpiles to JavaScript
+  	 \item Clean syntax
+  	 \item About 1/3 fewer lines of code
+	 \item Scope safety and object encapsulation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MongoDB}
+	\begin{itemize}
+  	 \item Document oriented JSON store
+  	 \item Queries in JavaScript
+  	 \item Support for networked data redundancy
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Mongoose}
+	\begin{itemize}
+  	 \item Node.js wrapper for MongoDB
+  	 \item Document schemas
+  	 \item Ensures uniqueness and supports versioning
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{jQuery}
+	\begin{itemize}
+  	 \item DOM interaction library
+  	 \item Ubiquitous
+  	 \item Powerful selectors and functions
+	 \item Integrates with other front-end tools
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Backbone.js}
+	\begin{itemize}
+  	 \item MV* Framework for client-side applications
+	 \item HTML rendering on the browser
+  	 \item Minimal opinionation
+	 \item Models, Views, Routers
+  	 \item Hierarchical views with event emission
+	 \item REST API conformity with Models and Collections
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bootstrap}
+	\begin{itemize}
+  	 \item Formerly Twitter Bootstrap
+	 \item Responsive grid layouts
+	 \item CSS classes and JavaScript utilities for the client
+  	 \item Easy to customize
+	 \item Simplifies web interface design
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Git and GitHub}
+	\begin{itemize}
+  	 \item Git is an advanced version control tool
+	 \item GitHub is a web service for managing Git repositories
+  	 \item Integrated in WebStorm
+	 \item Nontrivial learning curve
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Strider}
+	\begin{itemize}
+  	 \item Continuous integration and deployment server
+	 \item Pulls code from GitHub
+  	 \item Compiles Coffeescript and runs tests
+	 \item Computes code coverage metrics
+	 \item Deploys projects to web server for evaluation
+  	 \item Supports plugins and custom shell scripts
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Unit Testing With Mocha}
+	\begin{itemize}
+  	 \item Defines structure and syntax of test code
+	 \item Choice of assertion libraries
+  	 \item Different testing styles supported
+	 \item Versions for Node.js and client-side code
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conclusion and Observations}
+	\begin{itemize}
+  	 \item Unified language both helps and hurts students
+	 \item Particular difficulty with Backbone.js
+  	 \item Module driven development
+	 \item High velocity and low familiarity affects testing practices
+  	 \item Customer interaction
+	\end{itemize}
+\end{frame}
+
+
+\end{document}
