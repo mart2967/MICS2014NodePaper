@@ -1,6 +1,6 @@
 \documentclass{beamer}
 \usetheme{PaloAlto}
-\usecolortheme{beetle}
+\usecolortheme{rose}
 
 \usepackage{graphicx} %For jpg figure inclusion
 \usepackage{times} %For typeface
@@ -25,6 +25,9 @@
 \newcommand{\todo}[1]{\textcolor{blue}{\comment{To Do: {#1}}}}
 \newcommand{\code}[1]{{\texttt {#1}}}
 
+%\setbeamertemplate{footline}[page number]{}
+
+
 \begin{document}
 \title{Adopting Node.js and CoffeeScript in a Software Design Course}
 \date{\today}
@@ -39,7 +42,7 @@ mart2967@morris.umn.edu\par
 }
 \end{frame}
 
-\frame{\frametitle{Table of contents}\tableofcontents[currentsection]} 
+%\frame{\frametitle{Table of contents}\tableofcontents[currentsection]} 
 
 %\begin{frame}[fragile]
 %\frametitle{Introduction}
@@ -48,18 +51,23 @@ mart2967@morris.umn.edu\par
 %\begin{frame}[fragile]
 %\frametitle{Overview}
 %\end{frame}
-
+\section{Introduction}
+\subsection{Course Outline}
 \begin{frame}[fragile]
 \frametitle{The Software Design and Development Course}
 	\begin{itemize}
   	 \item Single project
   	 \item Small groups
   	 \item Agile methodology
-	 \item External customer
+	 \item External customer: LightSide Labs
 	 \item Current technology
 	\end{itemize}
 \end{frame}
 
+
+
+\section{Server Technologies}
+\subsection{Node.js}
 \begin{frame}[fragile]
 \frametitle{Node.js}
 	\begin{itemize}
@@ -68,24 +76,24 @@ mart2967@morris.umn.edu\par
   	 \item Built in web server
 	 \item Asynchronous I/O and JavaScript evaluation
 	 \item Single-threaded event loop
-	 \item large number of additional modules
+	 \item Large number of additional modules
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Development Workflow}
+\frametitle{Node Modules}
 	\begin{itemize}
-  	 \item WebStorm IDE (based on IntelliJ IDEA)
-	 \item Unit testing with Mocha
-  	 \item Version control with GitHub
-  	 \item Continuous integration with Strider
+  	 \item Express
+  	 \item Hogan
+  	 \item Blanket
 	\end{itemize}
 \end{frame}
 
+\subsection{CoffeeScript}
 \begin{frame}[fragile]
 \frametitle{CoffeeScript}
 	\begin{itemize}
-  	 \item Transpiles to JavaScript
+  	 \item A language that transpiles to JavaScript
   	 \item Clean syntax
   	 \item About 1/3 fewer lines of code
 	 \item Scope safety and object encapsulation
@@ -93,23 +101,69 @@ mart2967@morris.umn.edu\par
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{CoffeeScript to JavaScript Example}
+\begingroup
+    \fontsize{8pt}{12pt}\selectfont
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{verbatim}
+num = 9
+square = (x) -> x * x
+numSquared = square num
+
+myObj = 
+    name: "Mr. Object",
+    likes: "squaring numbers",
+    mySqare: square
+			\end{verbatim}
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\begin{verbatim}
+var myObj, num,
+    numSquared, square;
+
+num = 9;
+
+square = function(x) {
+  return x * x;
+};
+
+numSquared = square(num);
+
+myObj = {
+  name: "Mr. Object",
+  likes: "squaring numbers",
+  mySqare: square
+};
+			\end{verbatim}
+		\end{column}
+	\end{columns}
+\endgroup
+\end{frame}
+
+\subsection{MongoDB}
+\begin{frame}[fragile]
 \frametitle{MongoDB}
 	\begin{itemize}
-  	 \item Document oriented JSON store
+  	 \item Document oriented database
+         \item Records in JavaScript Object Notation (JSON)
   	 \item Queries in JavaScript
-  	 \item Support for networked data redundancy
+  	 \item Mongoose module provides extra utility
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Mongoose}
-	\begin{itemize}
-  	 \item Node.js wrapper for MongoDB
-  	 \item Document schemas
-  	 \item Ensures uniqueness and supports versioning
-	\end{itemize}
-\end{frame}
+%\begin{frame}[fragile]
+%\frametitle{Mongoose}
+%	\begin{itemize}
+% 	 \item Node.js wrapper for MongoDB
+% 	 \item Document schemas
+%  	 \item Ensures uniqueness and supports versioning
+%	\end{itemize}
+%\end{frame}
 
+\section{Client Technologies}
+\subsection{jQuery}
 \begin{frame}[fragile]
 \frametitle{jQuery}
 	\begin{itemize}
@@ -121,17 +175,38 @@ mart2967@morris.umn.edu\par
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{jQuery Example}
+\begingroup
+\fontsize{8pt}{12pt}\selectfont
+\begin{verbatim}
+// set html for element
+$("p:first").html( "This is the <em>first</em> paragraph");
+
+// set value for all inputs of myClass
+$("input.myClass").val("default text");
+
+// bind a function to the click event of an element
+$("#myButton").on("click", function(){
+    alert("Button was clicked");
+});
+\end{verbatim}
+\endgroup
+\end{frame}
+
+\subsection{Backbone.js}
+\begin{frame}[fragile]
 \frametitle{Backbone.js}
 	\begin{itemize}
   	 \item MV* Framework for client-side applications
 	 \item HTML rendering on the browser
-  	 \item Minimal opinionation
 	 \item Models, Views, Routers
   	 \item Hierarchical views with event emission
 	 \item REST API conformity with Models and Collections
+	 \item Minimal opinionation
 	\end{itemize}
 \end{frame}
 
+\subsection{Bootstrap}
 \begin{frame}[fragile]
 \frametitle{Bootstrap}
 	\begin{itemize}
@@ -143,16 +218,30 @@ mart2967@morris.umn.edu\par
 	\end{itemize}
 \end{frame}
 
+%\begin{frame}[fragile]
+%\frametitle{Git and GitHub}
+%	\begin{itemize}
+%  	 \item Git is an advanced version control tool
+%	 \item GitHub is a web service for managing Git repositories
+%  	 \item Integrated in WebStorm
+%	 \item Nontrivial learning curve
+%	\end{itemize}
+%\end{frame}
+
+\section{Testing and Integration}
+
+\subsection{Course Workflow}
 \begin{frame}[fragile]
-\frametitle{Git and GitHub}
+\frametitle{Development Workflow}
 	\begin{itemize}
-  	 \item Git is an advanced version control tool
-	 \item GitHub is a web service for managing Git repositories
-  	 \item Integrated in WebStorm
-	 \item Nontrivial learning curve
+  	 \item WebStorm IDE (based on IntelliJ IDEA)
+	 \item Unit testing with Mocha
+  	 \item Version control with GitHub
+  	 \item Continuous integration with Strider
 	\end{itemize}
 \end{frame}
 
+\subsection{Strider}
 \begin{frame}[fragile]
 \frametitle{Strider}
 	\begin{itemize}
@@ -165,6 +254,7 @@ mart2967@morris.umn.edu\par
 	\end{itemize}
 \end{frame}
 
+\subsection{Mocha}
 \begin{frame}[fragile]
 \frametitle{Unit Testing With Mocha}
 	\begin{itemize}
@@ -175,6 +265,7 @@ mart2967@morris.umn.edu\par
 	\end{itemize}
 \end{frame}
 
+\section{Conclusion}
 \begin{frame}[fragile]
 \frametitle{Conclusion and Observations}
 	\begin{itemize}
